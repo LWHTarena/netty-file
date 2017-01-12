@@ -185,6 +185,12 @@ ChannelFuture sendFileFuture =
         ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 
+    private static  void sendInfo(ChannelHandlerContext ctx, HttpResponseStatus status){
+        FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, status, Unpooled.copiedBuffer("Failure: "+ status +"\r\n", CharsetUtil.UTF_8));
+        response.headers().set(CONTENT_TYPE,"text/plain; charset=UTF-8");
+        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+    }
+
     /**
      * Sets the content type header for the HTTP Response
      *
