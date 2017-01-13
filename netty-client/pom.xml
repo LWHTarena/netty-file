@@ -41,6 +41,11 @@
       <artifactId>fastjson</artifactId>
       <version>1.2.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.netty</groupId>
+      <artifactId>netty</artifactId>
+      <version>3.2.1.Final</version>
+    </dependency>
 
   </dependencies>
 </project>
