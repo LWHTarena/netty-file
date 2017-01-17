@@ -1,17 +1,20 @@
-package com.lwhtarena.netty.tutorial03.pojo;
+package com.lwhtarena.netty.tutorial03.model;
 
 import java.io.Serializable;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>响应信息</P>
+ * @Date: 2016/11/17.
+ * @Description：接收信息
  */
 public class RecvieMessage implements Serializable {
 
-    private short msgType; //响应信息类型
+    private short msgType;
 
-    private String data; //信息
+    private String data;
+
+    public RecvieMessage() {
+    }
 
     public short getMsgType() {
         return msgType;

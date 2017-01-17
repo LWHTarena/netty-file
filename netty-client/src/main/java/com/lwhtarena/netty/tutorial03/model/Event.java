@@ -1,9 +1,9 @@
-package com.lwhtarena.netty.tutorial03.pojo;
+package com.lwhtarena.netty.tutorial03.model;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p></P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
 public class Event {
     public static final short MESSAGE_TYPE_SECURE_MODEL = 0x0001;

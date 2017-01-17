@@ -1,15 +1,16 @@
 package com.lwhtarena.netty.tutorial03.client;
 
-import com.lwhtarena.netty.tutorial03.util.ObjectConvertUtil;
+import com.lwhtarena.netty.netty4.util.ObjectConvertUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 
 import java.util.List;
 
 /**
+ * 解码器
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>解密器</P>
+ * @Date: 2016/11/17.
+ * @Description：解码器
  */
 public class NettyMessageDecoder extends MessageToMessageDecoder<Object> {
     @Override

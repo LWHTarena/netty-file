@@ -1,7 +1,7 @@
 package com.lwhtarena.netty.tutorial03.client;
 
-import com.lwhtarena.netty.tutorial03.pojo.RequestFile;
-import com.lwhtarena.netty.tutorial03.util.MD5FileUtil;
+import com.lwhtarena.netty.netty4.model.RequestFile;
+import com.lwhtarena.netty.netty4.util.MD5FileUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,10 +14,10 @@ import java.io.File;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>netty 客户端</P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
-public class FileClient {
+public class FileTransferClient {
 
     public void connect(int port, String host, final RequestFile echoFile) throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
@@ -32,7 +32,7 @@ public class FileClient {
 
                     ch.pipeline().addLast(new NettyMessageDecoder());//设置服务器端的编码和解码
                     ch.pipeline().addLast(new NettyMessageEncoder());
-                    ch.pipeline().addLast(new FileClientHandler(echoFile));
+                    ch.pipeline().addLast(new FileTransferClientHandler(echoFile));
                 }
             });
             ChannelFuture f = b.connect(host, port).sync();
@@ -49,19 +49,28 @@ public class FileClient {
 
     public static void main(String[] args) {
         int port = 10012;
+		/*if (args != null && args.length > 0) {
+			try {
+				port = Integer.valueOf(args[0]);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		}*/
         try {
             RequestFile echo = new RequestFile();
-            //File file = new File("D:\\lwhSpaces\\TemplateRepo\\testova.xva");  //  "D://files/xxoo"+args[0]+".amr"
-            File file = new File("D:\\lwhSpaces\\TemplateRepo\\ova.xml");  //  "D://files/xxoo"+args[0]+".amr"
+            File file = new File("D://lwhSpaces//TemplateRepo//Centos7.1bit64.xva");  //  "D://files/xxoo"+args[0]+".amr"
             String fileName = file.getName();// 文件名
             echo.setFile(file);
             echo.setFile_md5(MD5FileUtil.getFileMD5String(file));
             echo.setFile_name(fileName);
             echo.setFile_type(getSuffix(fileName));
             echo.setStarPos(0);// 文件开始位置
-            new FileClient().connect(port, "127.0.0.1", echo);
+            new FileTransferClient().connect(port, "127.0.0.1", echo);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
+
 }

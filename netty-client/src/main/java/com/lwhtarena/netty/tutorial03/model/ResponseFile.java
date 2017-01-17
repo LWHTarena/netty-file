@@ -1,13 +1,13 @@
-package com.lwhtarena.netty.tutorial03.pojo;
+package com.lwhtarena.netty.tutorial03.model;
 
 import java.io.Serializable;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>响应文件</P>
+ * @Date: 2016/11/17.
+ * @Description：响应文件
  */
-public class ResponseFile implements Serializable {
+public class ResponseFile implements Serializable{
 
     /**
      * 开始 读取点
@@ -30,24 +30,8 @@ public class ResponseFile implements Serializable {
      */
     private int progress ;
 
+
     public ResponseFile() {
-    }
-
-    public ResponseFile(long start, String file_md5, String file_url) {
-        super();
-        this.start = start;
-        this.file_md5 = file_md5;
-        this.file_url = file_url;
-        this.end = true;
-        this.progress = 100;
-    }
-
-    public ResponseFile(long start, String file_md5,long progress) {
-        super();
-        this.start = start;
-        this.file_md5 = file_md5;
-        this.end = false;
-        this.progress = (int)progress;
     }
 
     public long getStart() {
@@ -88,5 +72,17 @@ public class ResponseFile implements Serializable {
 
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("progress:");
+        sb.append(progress);
+        sb.append("\t\tstart:");
+        sb.append(start);
+        sb.append("\t\tfile_url:");
+        sb.append(file_url);
+        return sb.toString();
     }
 }

@@ -1,7 +1,7 @@
 package com.lwhtarena.netty.tutorial03.server;
 
 
-import com.lwhtarena.netty.netty4.util.FileTransferProperties;
+import com.lwhtarena.netty.tutorial03.util.FileTransferProperties;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -11,17 +11,16 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.springframework.core.io.FileSystemResourceLoader;
-import java.io.IOException;
 
+import java.io.IOException;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>netty 启动服务端</P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
-public class FileServer {
-
-    private Logger logger = Logger.getLogger(FileServer.class);
+public class FileTransferServer {
+    private Logger log = Logger.getLogger(FileTransferServer.class);
 
     public void bind(int port) throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -33,7 +32,7 @@ public class FileServer {
                     .option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new FileChannelInitializer());
 
-            logger.info("bind port:" + port);
+            log.info("bind port:"+port);
 
             ChannelFuture f = b.bind(port).sync();
             f.channel().closeFuture().sync();
@@ -43,19 +42,16 @@ public class FileServer {
         }
     }
 
-    private static void init() {
+    private static void init(){
         try {
-
-            /**
-             *
-             * 请把加载属性文件放在 加载日志配置的上面，因为读取日志输出的目录配置在 属性文件里面
-             */
+            //请把加载属性文件放在 加载日志配置的上面，因为读取日志输出的目录配置在 属性文件里面
             FileTransferProperties.load("classpath:systemConfig.properties");
 
-            System.setProperty("WORKDIR", FileTransferProperties.getString("WORKDIR", "/"));
+            System.setProperty("WORKDIR", FileTransferProperties.getString("WORKDIR","/"));
 
-            PropertyConfigurator.configure(new FileSystemResourceLoader().getResource("classpath:log4j.xml").getInputStream());
-        } catch (IOException e) {
+            PropertyConfigurator.configure(new FileSystemResourceLoader().getResource(
+                    "classpath:log4j.xml").getInputStream());
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -63,7 +59,7 @@ public class FileServer {
     public static void main(String[] args) {
         init();
         // 获取端口
-        int port = FileTransferProperties.getInt("port", 10012);
+        int port  = FileTransferProperties.getInt("port",10012);
 
         if (args != null && args.length > 0) {
             try {
@@ -72,11 +68,11 @@ public class FileServer {
                 e.printStackTrace();
             }
         }
+
         try {
-            new FileServer().bind(port);
+            new FileTransferServer().bind(port);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

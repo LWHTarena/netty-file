@@ -1,11 +1,11 @@
-package com.lwhtarena.netty.tutorial03.pojo;
+package com.lwhtarena.netty.tutorial03.model;
 
 import java.io.Serializable;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p></P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
 public class SecureModel implements Serializable{
     /**
@@ -15,21 +15,15 @@ public class SecureModel implements Serializable{
 
     private boolean autoSuccess;
 
-    public SecureModel() {
-    }
-
     public String getToken() {
         return token;
     }
-
     public void setToken(String token) {
         this.token = token;
     }
-
     public boolean isAutoSuccess() {
         return autoSuccess;
     }
-
     public void setAutoSuccess(boolean autoSuccess) {
         this.autoSuccess = autoSuccess;
     }

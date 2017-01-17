@@ -1,8 +1,8 @@
 package com.lwhtarena.netty.tutorial03.server;
 
-import com.lwhtarena.netty.netty4.util.FileTransferProperties;
-import com.lwhtarena.netty.tutorial03.pojo.RequestFile;
-import com.lwhtarena.netty.tutorial03.pojo.ResponseFile;
+import com.lwhtarena.netty.tutorial03.model.RequestFile;
+import com.lwhtarena.netty.tutorial03.model.ResponseFile;
+import com.lwhtarena.netty.tutorial03.util.FileTransferProperties;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
@@ -14,11 +14,11 @@ import java.io.RandomAccessFile;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p></P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
-public class FileServerHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger log = LoggerFactory.getLogger(FileServerHandler.class);
+public class FileTransferServerHandler extends ChannelInboundHandlerAdapter {
+    private static final Logger log = LoggerFactory.getLogger(FileTransferServerHandler.class);
 
     private volatile int byteRead;
     private volatile long start = 0;
@@ -32,7 +32,6 @@ public class FileServerHandler extends ChannelInboundHandlerAdapter {
     private File file ;
     private long fileSize = -1 ;
 
-
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof RequestFile) {
@@ -44,11 +43,6 @@ public class FileServerHandler extends ChannelInboundHandlerAdapter {
 
             if(start == 0){ //只有在文件开始传的时候才进入 这样就减少了对象创建 和可能出现的一些错误
                 String path = file_dir + File.separator + md5+ef.getFile_type();
-
-                System.out.println("=============================");
-                System.out.println("#############################"+path);
-
-
                 file = new File(path);
                 fileSize = ef.getFile_size();
 
@@ -58,11 +52,8 @@ public class FileServerHandler extends ChannelInboundHandlerAdapter {
                     ResponseFile responseFile = new ResponseFile(start,md5,getFilePath());
                     ctx.writeAndFlush(responseFile);
 
-                    /**
-                     * TODO 这里可以做 断点续传 ，读取当前已经存在文件的总长度  和 传输过来的文件总长度对比
-                     * 如果不一致，则认为本地文件没有传完毕 则续传
-                     * 不过这步骤必须做好安全之后来做，否则可能会出现 文件被恶意加入内容
-                     */
+                    //TODO 这里可以做 断点续传 ，读取当前已经存在文件的总长度  和 传输过来的文件总长度对比 如果不一致，则认为本地文件没有传完毕 则续传
+                    // 不过这步骤必须做好安全之后来做，否则可能会出现 文件被恶意加入内容
                     return ;
                 }
 
@@ -92,7 +83,6 @@ public class FileServerHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
@@ -113,10 +103,10 @@ public class FileServerHandler extends ChannelInboundHandlerAdapter {
      * @return
      */
     private String getFilePath(){
-        System.out.println("###################################");
         if( file != null )
             return FileTransferProperties.getString("download_root_path") +"/" + file.getName();
         else
             return null ;
     }
+
 }

@@ -12,17 +12,17 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 计算文件的 MD5值，大文件不适合，会出现异常
- *  * 大文件是指超过 1GB
- * MD5生成效率：
- * 300MB 大约需要 1秒钟时间
  * @author： liwh
  * @Date: 2016/11/17.
  * @Description：
+ * 计算文件的 MD5值，大文件不适合，会出现异常
+ * 大文件是指超过 1GB
+ * MD5生成效率：
+ * 300MB 大约需要 1秒钟时间
  */
 public class MD5FileUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(MD5FileUtil.class);
+    private static final Logger logger = LoggerFactory  .getLogger(MD5FileUtil.class);
 
     protected static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6',
             '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
@@ -46,7 +46,8 @@ public class MD5FileUtil {
     public synchronized static String getFileMD5String(File file) throws IOException {
         FileInputStream in = new FileInputStream(file);
         FileChannel ch = in.getChannel();
-        MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
+        MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0,
+                file.length());
         messagedigest.update(byteBuffer);
         return bufferToHex(messagedigest.digest());
     }

@@ -1,6 +1,6 @@
 package com.lwhtarena.netty.tutorial03.server;
 
-import com.lwhtarena.netty.tutorial03.pojo.SecureModel;
+import com.lwhtarena.netty.tutorial03.model.SecureModel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.group.ChannelGroup;
@@ -11,12 +11,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>对客户端的上传数据 有效性验证</P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
 public class SecureServerHandler extends ChannelInboundHandlerAdapter {
-
-    private static final Logger logger = LoggerFactory.getLogger(SecureServerHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(SecureServerHandler.class);
     static final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     @Override
@@ -26,8 +25,8 @@ public class SecureServerHandler extends ChannelInboundHandlerAdapter {
             if(secureModel.getToken() != null ){
                 //TODO  验证 token 是否存在，并且token对应的 ip和 ctx里面来源ip是否一致
                 if(true){
-                    logger.info("NEW TCP >" + ctx.channel().remoteAddress());
-                    logger.info("now connection count >" +channels.size());
+                    log.info("NEW TCP >" + ctx.channel().remoteAddress());
+                    log.info("now connection count >" +channels.size());
 
                     channels.add(ctx.channel());
                     secureModel.setAutoSuccess(true);

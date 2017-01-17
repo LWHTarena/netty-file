@@ -1,8 +1,7 @@
 package com.lwhtarena.netty.tutorial03.server;
 
-import com.lwhtarena.netty.netty4.code.NettyMessageDecoder;
-import com.lwhtarena.netty.netty4.code.NettyMessageEncoder;
-import com.lwhtarena.netty.netty4.server.SecureServerHandler;
+import com.lwhtarena.netty.tutorial03.code.NettyMessageDecoder;
+import com.lwhtarena.netty.tutorial03.code.NettyMessageEncoder;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.handler.codec.serialization.ClassResolvers;
@@ -11,8 +10,8 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p></P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
 public class FileChannelInitializer extends ChannelInitializer<Channel> {
     @Override
@@ -24,7 +23,6 @@ public class FileChannelInitializer extends ChannelInitializer<Channel> {
         ch.pipeline().addLast(new NettyMessageEncoder());
 
         ch.pipeline().addLast(new SecureServerHandler());
-        ch.pipeline().addLast(new FileServerHandler());
-
+        ch.pipeline().addLast(new FileTransferServerHandler());
     }
 }

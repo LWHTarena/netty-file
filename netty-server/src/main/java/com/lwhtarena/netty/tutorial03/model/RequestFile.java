@@ -1,13 +1,11 @@
-package com.lwhtarena.netty.tutorial03.pojo;
-
-import java.io.Serializable;
+package com.lwhtarena.netty.tutorial03.model;
 
 /**
  * @author： liwh
- * @Date: 2017/1/16.
- * @Description：<p>请求文件</P>
+ * @Date: 2016/11/17.
+ * @Description：
  */
-public class RequestFile implements Serializable{
+public class RequestFile {
 
     private String file_name;// 文件名
     private long starPos;// 开始位置
@@ -20,28 +18,12 @@ public class RequestFile implements Serializable{
     public RequestFile() {
     }
 
-    public String getFile_name() {
-        return file_name;
-    }
-
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
-    }
-
     public long getStarPos() {
         return starPos;
     }
 
     public void setStarPos(long starPos) {
         this.starPos = starPos;
-    }
-
-    public byte[] getBytes() {
-        return bytes;
-    }
-
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
     }
 
     public int getEndPos() {
@@ -52,12 +34,28 @@ public class RequestFile implements Serializable{
         this.endPos = endPos;
     }
 
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
     public String getFile_md5() {
         return file_md5;
     }
 
     public void setFile_md5(String file_md5) {
         this.file_md5 = file_md5;
+    }
+
+    public String getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
     }
 
     public String getFile_type() {

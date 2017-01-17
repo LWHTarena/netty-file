@@ -1,15 +1,14 @@
 package com.lwhtarena.netty.tutorial03.util;
 
 import com.alibaba.fastjson.JSON;
+import com.lwhtarena.netty.tutorial03.model.*;
 
 /**
- * 传输数据转化包
  * @author： liwh
  * @Date: 2016/11/17.
  * @Description：传输数据转化包
  */
 public class ObjectConvertUtil {
-
     public static String convertModle(SecureModel secureModel){
         RecvieMessage recevie = new RecvieMessage();
         recevie.setData(JSON.toJSONString(secureModel));
@@ -49,7 +48,7 @@ public class ObjectConvertUtil {
     }
 
     public static String request(Object obj){
-        if( obj instanceof SecureModel ) {
+        if( obj instanceof SecureModel) {
             SecureModel secureModel = (SecureModel)obj;
             return convertModle(secureModel);
         } else if ( obj instanceof RequestFile) {
