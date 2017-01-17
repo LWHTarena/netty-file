@@ -1,6 +1,6 @@
 package com.lwhtarena.netty.tutorial03.client;
 
-import com.lwhtarena.netty.netty4.util.ObjectConvertUtil;
+import com.lwhtarena.netty.tutorial03.util.ObjectConvertUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 

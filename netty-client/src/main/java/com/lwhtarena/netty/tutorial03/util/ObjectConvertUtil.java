@@ -1,6 +1,7 @@
 package com.lwhtarena.netty.tutorial03.util;
 
 import com.alibaba.fastjson.JSON;
+import com.lwhtarena.netty.tutorial03.model.*;
 
 /**
  * 传输数据转化包

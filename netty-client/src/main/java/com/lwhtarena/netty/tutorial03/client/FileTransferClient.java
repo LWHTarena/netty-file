@@ -1,7 +1,7 @@
 package com.lwhtarena.netty.tutorial03.client;
 
-import com.lwhtarena.netty.netty4.model.RequestFile;
-import com.lwhtarena.netty.netty4.util.MD5FileUtil;
+import com.lwhtarena.netty.tutorial03.model.RequestFile;
+import com.lwhtarena.netty.tutorial03.util.MD5FileUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -49,7 +49,7 @@ public class FileTransferClient {
 
     public static void main(String[] args) {
         int port = 10012;
-		/*if (args != null && args.length > 0) {
+        /*if (args != null && args.length > 0) {
 			try {
 				port = Integer.valueOf(args[0]);
 			} catch (NumberFormatException e) {
@@ -58,7 +58,8 @@ public class FileTransferClient {
 		}*/
         try {
             RequestFile echo = new RequestFile();
-            File file = new File("D://lwhSpaces//TemplateRepo//Centos7.1bit64.xva");  //  "D://files/xxoo"+args[0]+".amr"
+            //File file = new File("D://lwhSpaces//TemplateRepo//Centos7.1bit64.xva");  //  "D://files/xxoo"+args[0]+".amr"
+            File file = new File("D:/lwhSpaces/TemplateRepo/windows2008.xva");  //  "D://files/xxoo"+args[0]+".amr"
             String fileName = file.getName();// 文件名
             echo.setFile(file);
             echo.setFile_md5(MD5FileUtil.getFileMD5String(file));

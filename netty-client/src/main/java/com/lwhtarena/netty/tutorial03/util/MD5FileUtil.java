@@ -46,8 +46,13 @@ public class MD5FileUtil {
     public synchronized static String getFileMD5String(File file) throws IOException {
         FileInputStream in = new FileInputStream(file);
         FileChannel ch = in.getChannel();
-        MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
-        messagedigest.update(byteBuffer);
+        int fileSize =1*1024*1024*1024;
+        if(file.length()>fileSize){
+
+        }else{
+            MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
+            messagedigest.update(byteBuffer);
+        }
         return bufferToHex(messagedigest.digest());
     }
 

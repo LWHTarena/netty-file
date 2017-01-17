@@ -1,8 +1,8 @@
 package com.lwhtarena.netty.tutorial03.client;
 
-import com.lwhtarena.netty.netty4.model.RequestFile;
-import com.lwhtarena.netty.netty4.model.ResponseFile;
-import com.lwhtarena.netty.netty4.model.SecureModel;
+import com.lwhtarena.netty.tutorial03.model.RequestFile;
+import com.lwhtarena.netty.tutorial03.model.ResponseFile;
+import com.lwhtarena.netty.tutorial03.model.SecureModel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

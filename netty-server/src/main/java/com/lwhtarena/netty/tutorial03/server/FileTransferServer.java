@@ -32,7 +32,7 @@ public class FileTransferServer {
                     .option(ChannelOption.SO_BACKLOG, 1024)
                     .childHandler(new FileChannelInitializer());
 
-            log.info("bind port:"+port);
+            log.info("bind port:" + port);
 
             ChannelFuture f = b.bind(port).sync();
             f.channel().closeFuture().sync();
@@ -42,16 +42,16 @@ public class FileTransferServer {
         }
     }
 
-    private static void init(){
+    private static void init() {
         try {
             //请把加载属性文件放在 加载日志配置的上面，因为读取日志输出的目录配置在 属性文件里面
             FileTransferProperties.load("classpath:systemConfig.properties");
 
-            System.setProperty("WORKDIR", FileTransferProperties.getString("WORKDIR","/"));
+            System.setProperty("WORKDIR", FileTransferProperties.getString("WORKDIR", "/"));
 
             PropertyConfigurator.configure(new FileSystemResourceLoader().getResource(
                     "classpath:log4j.xml").getInputStream());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -59,7 +59,7 @@ public class FileTransferServer {
     public static void main(String[] args) {
         init();
         // 获取端口
-        int port  = FileTransferProperties.getInt("port",10012);
+        int port = FileTransferProperties.getInt("port", 10012);
 
         if (args != null && args.length > 0) {
             try {
