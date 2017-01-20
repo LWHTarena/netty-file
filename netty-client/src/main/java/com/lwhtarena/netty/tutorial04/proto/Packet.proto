@@ -1,0 +1,18 @@
+option java_outer_classname = "PacketProto";
+
+message Packet {
+
+	// ��������
+	enum PacketType {
+		// ������
+		HEARTBEAT = 1;
+		// ��������
+		DATA = 2;
+	}
+
+	// ������
+	required PacketType packetType = 1;
+	
+	// ���ݲ��֣���ѡ�����������������ݲ��֣�
+	optional string data = 2;
+}
