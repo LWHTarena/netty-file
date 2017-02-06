@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/netty-bigFile/netty-bigFile.iml" filepath="$PROJECT_DIR$/netty-bigFile/netty-bigFile.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty-client/netty-client.iml" filepath="$PROJECT_DIR$/netty-client/netty-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty-file-client/netty-file-client.iml" filepath="$PROJECT_DIR$/netty-file-client/netty-file-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/netty-file-server/netty-file-server.iml" filepath="$PROJECT_DIR$/netty-file-server/netty-file-server.iml" />

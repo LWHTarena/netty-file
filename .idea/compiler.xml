@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="netty-bigFile" />
         <module name="netty-client" />
         <module name="netty-file-client" />
         <module name="netty-file-server" />
@@ -14,6 +15,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="netty-bigFile" target="1.5" />
       <module name="netty-client" target="1.8" />
       <module name="netty-file-client" target="1.5" />
       <module name="netty-file-server" target="1.5" />
