@@ -2,17 +2,17 @@ option java_outer_classname = "PacketProto";
 
 message Packet {
 
-	// ��������
-	enum PacketType {
-		// ������
-		HEARTBEAT = 1;
-		// ��������
-		DATA = 2;
-	}
+  // 包的类型
+    enum PacketType {
+        // 心跳包
+        HEARTBEAT = 1;
+        // 非心跳包
+        DATA = 2;
+    }
 
-	// ������
-	required PacketType packetType = 1;
-	
-	// ���ݲ��֣���ѡ�����������������ݲ��֣�
-	optional string data = 2;
+    // 包类型
+    required PacketType packetType = 1;
+
+    // 数据部分（可选，心跳包不包含数据部分）
+    optional string data = 2;
 }

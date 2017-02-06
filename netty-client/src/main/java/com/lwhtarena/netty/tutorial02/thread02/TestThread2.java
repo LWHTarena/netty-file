@@ -1,7 +1,6 @@
 package com.lwhtarena.netty.tutorial02.thread02;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @author： liwh

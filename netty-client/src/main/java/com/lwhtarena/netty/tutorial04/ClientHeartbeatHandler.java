@@ -1,11 +1,12 @@
 package com.lwhtarena.netty.tutorial04;
 
-import common.PacketProto.Packet;
+import com.lwhtarena.netty.tutorial04.common.PacketProto;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 
-import static common.PacketProto.Packet.newBuilder;
+import static com.lwhtarena.netty.tutorial04.common.PacketProto.Packet.newBuilder;
+
 
 /**
  * Created by Yohann on 2016/11/9.
@@ -45,9 +46,9 @@ public class ClientHeartbeatHandler extends ChannelInboundHandlerAdapter {
      * @param ctx
      */
     private void sendHeartbeatPacket(ChannelHandlerContext ctx) {
-        Packet.Builder builder = newBuilder();
-        builder.setPacketType(Packet.PacketType.HEARTBEAT);
-        Packet packet = builder.build();
+        PacketProto.Packet.Builder builder = newBuilder();
+        builder.setPacketType(PacketProto.Packet.PacketType.HEARTBEAT);
+        PacketProto.Packet packet = builder.build();
         ctx.writeAndFlush(packet);
     }
 }

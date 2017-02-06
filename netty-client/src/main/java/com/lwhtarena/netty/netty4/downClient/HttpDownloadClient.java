@@ -37,7 +37,6 @@ public class HttpDownloadClient {
             b.option(ChannelOption.SO_KEEPALIVE, true);
             b.handler(new ChildChannelHandler(local));
 
-
 ///===========>>>>> Start the client.
             ChannelFuture f = b.connect(host, port).sync();
 

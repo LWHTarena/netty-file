@@ -64,7 +64,6 @@ public class NettyClient{
 				client.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
 				future=client.connect(API.IP, API.PORT);
 				future.addListener(new ChannelFutureListener() {
-					@Override
 					public void operationComplete(ChannelFuture f) throws Exception {
 						// TODO 自动生成的方法存根
 						if(f.isSuccess()){
@@ -87,7 +86,6 @@ public class NettyClient{
 		try {
 			future=client.connect(API.IP, API.PORT);
 			future.addListener(new ChannelFutureListener() {
-				@Override
 				public void operationComplete(ChannelFuture f) throws Exception {
 					// TODO 自动生成的方法存根
 					if(f.isSuccess()){

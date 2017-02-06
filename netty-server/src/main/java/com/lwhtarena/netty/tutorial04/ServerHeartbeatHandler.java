@@ -1,11 +1,14 @@
 package com.lwhtarena.netty.tutorial04;
 
+import com.lwhtarena.netty.tutorial04.common.PacketProto;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 
-import static common.PacketProto.Packet;
+import static com.lwhtarena.netty.tutorial04.common.PacketProto.Packet.PacketType.DATA;
+import static com.lwhtarena.netty.tutorial04.common.PacketProto.Packet.PacketType.HEARTBEAT;
+
 
 /**
  * Created by Yohann on 2016/11/9.
@@ -29,8 +32,8 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
         // 判断接收到的包类型
-        if (msg instanceof Packet) {
-            Packet packet = (Packet) msg;
+        if (msg instanceof PacketProto.Packet) {
+            PacketProto.Packet packet = (PacketProto.Packet) msg;
 
             switch (packet.getPacketType()) {
                 case HEARTBEAT:
@@ -73,7 +76,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
      * @param ctx
      * @param packet
      */
-    private void handleHeartbreat(ChannelHandlerContext ctx, Packet packet) {
+    private void handleHeartbreat(ChannelHandlerContext ctx, PacketProto.Packet packet) {
         // 将心跳丢失计数器置为0
         counter = 0;
         System.out.println("收到心跳包");
@@ -86,7 +89,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
      * @param ctx
      * @param packet
      */
-    private void handleData(ChannelHandlerContext ctx, Packet packet) {
+    private void handleData(ChannelHandlerContext ctx, PacketProto.Packet packet) {
         // 将心跳丢失计数器置为0
         counter = 0;
         String data = packet.getData();
