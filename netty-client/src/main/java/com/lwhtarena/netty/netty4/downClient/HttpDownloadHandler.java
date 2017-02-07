@@ -42,16 +42,13 @@ public class HttpDownloadHandler extends ChannelInboundHandlerAdapter {
             if(succCode == 404){
                 System.out.println("=====================>>>>>>>>>>>>>>>>404");
             }
-// System.out.println("CONTENT_TYPE:"
-// + response.headers().get(HttpHeaders.Names.CONTENT_TYPE));
         }
+
 
         if (msg instanceof HttpContent) {// response 体信息
             System.out.println(">>>>>>>>>>>>>>>>>>>loading...");
 
             System.out.println("文件的长度："+new File(localfile.getAbsolutePath()).length());
-
-
 
             HttpContent chunk = (HttpContent) msg;
             if (chunk instanceof LastHttpContent) {
@@ -61,7 +58,6 @@ public class HttpDownloadHandler extends ChannelInboundHandlerAdapter {
             ByteBuf buffer = chunk.content();
             byte[] dst = new byte[buffer.readableBytes()];
 
-            System.out.println();
             if (succCode == 200) {
                 while (buffer.isReadable()) {
                     buffer.readBytes(dst);
@@ -143,6 +139,11 @@ public class HttpDownloadHandler extends ChannelInboundHandlerAdapter {
 //        super.channelActive(ctx);
     }
 
+    /**
+     * 轮询 读取配置文件
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<< 下载完毕");
@@ -150,9 +151,10 @@ public class HttpDownloadHandler extends ChannelInboundHandlerAdapter {
 //        super.channelReadComplete(ctx);
     }
 
+
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("无效=========>>>>>>>>>");
-//        super.channelInactive(ctx);
+        super.channelInactive(ctx);
     }
 }

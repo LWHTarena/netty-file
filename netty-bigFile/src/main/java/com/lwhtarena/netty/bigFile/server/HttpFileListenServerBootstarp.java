@@ -26,7 +26,6 @@ public class HttpFileListenServerBootstarp implements Runnable {
         serverBootstrap.group(bossGroup, workerGroup);
         serverBootstrap.channel(NioServerSocketChannel.class);
 
-//serverBootstrap.handler(new LoggingHandler(LogLevel.INFO));
         serverBootstrap.childHandler(new HttpChannelInitlalizer());
         try {
             ChannelFuture f = serverBootstrap.bind(port).sync();

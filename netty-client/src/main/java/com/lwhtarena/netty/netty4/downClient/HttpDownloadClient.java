@@ -168,7 +168,7 @@ public class HttpDownloadClient {
 
     public static void main(String[] args) throws Exception {
         HttpDownloadClient client = new HttpDownloadClient();
-        client.connect("127.0.0.1", 9003,"D:/lwhSpaces/netty-temp/389848d904de3bc9b25bab88ebf802f2.xva","temp_upload.xva");
+        client.connect("127.0.0.1", 9003,"D:/lwhSpaces/TemplateRepo/Centos7.1bit64.xva","temp_upload.xva");
 
 //        Map<String,Object> map =client.connectServer("127.0.0.1",9003,"D:/lwhSpaces/netty-temp/389848d904de3bc9b25bab88ebf802f2.xva","temp_upload.xva");
 

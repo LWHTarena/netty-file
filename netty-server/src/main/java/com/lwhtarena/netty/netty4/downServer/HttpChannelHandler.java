@@ -44,9 +44,8 @@ public class HttpChannelHandler extends SimpleChannelInboundHandler<FullHttpRequ
     public static final int HTTP_CACHE_SECONDS = 60;
     int num =0;
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        System.out.println("=========---"+num+"----========");
-        num++;
-// 监测解码情况i
+
+// 监测解码情况
         if (!request.getDecoderResult().isSuccess()) {
             sendError(ctx, BAD_REQUEST);
             return;
@@ -54,7 +53,9 @@ public class HttpChannelHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
         final String uri = request.getUri();
         final String path = sanitizeUri(uri);
-        System.out.println("get file:"+path);
+
+        System.out.println("get file:"+path); //服务器文件存储地址路径
+
         if (path == null) {
             sendError(ctx, FORBIDDEN);
             return;
@@ -62,7 +63,9 @@ public class HttpChannelHandler extends SimpleChannelInboundHandler<FullHttpRequ
 // 读取要下载的文件
 //        File file = new File("D:/lwhSpaces/windows2008.xva");
         File file = new File(path);
+
         System.out.println("读取文件大小："+file.length());
+
         if (file.isHidden() || !file.exists()) {
             sendError(ctx, NOT_FOUND);
             return;
@@ -79,7 +82,7 @@ public class HttpChannelHandler extends SimpleChannelInboundHandler<FullHttpRequ
             return;
         }
         long fileLength = raf.length();
-        HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+        final HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
         HttpHeaders.setContentLength(response, fileLength);
         setContentTypeHeader(response, file);
 
@@ -89,14 +92,11 @@ public class HttpChannelHandler extends SimpleChannelInboundHandler<FullHttpRequ
             response.headers().set("CONNECTION", HttpHeaders.Values.KEEP_ALIVE);
         }
 
-// Write the initial line and the header.
+//写入初始行和标题。
         ctx.write(response);
 
-        System.out.println("文件大小："+fileLength);
-
-
         ChannelPromise channelPromise =ctx.newProgressivePromise();
-// Write the content.
+//写内容
 ChannelFuture sendFileFuture =
 
         /**
@@ -109,30 +109,33 @@ ChannelFuture sendFileFuture =
          *  chunkField 8M -->8192kb
          */
 
-        ctx.write(new HttpChunkedInput(new ChunkedFile(raf, 0, fileLength, 8192)), channelPromise);
+         ctx.write(new HttpChunkedInput(new ChunkedFile(raf, 0, fileLength, 8192)), channelPromise);
 
 // sendFuture 用于监视发送数据的状态
-     sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
-         public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) {
-             if (total < 0) { // total unknown
-                System.err.println(future.channel() + "Transfer progress:" + progress);
-             } else {
-                System.err.println(future.channel() + "Transfer progress:" + progress / total);
+         sendFileFuture.addListener(new ChannelProgressiveFutureListener() {
+             public void operationProgressed(ChannelProgressiveFuture future, long progress, long total) {
+                 if (total < 0) { // total unknown
+                    System.err.println(future.channel() + "Transfer progress:" + progress);
+                    setDataToClient(response,String.valueOf(progress));
+                 } else {
+                    System.err.println(future.channel() + "Transfer progress:" + progress / total);
+                    setDataToClient(response,String.valueOf(progress));
+                 }
              }
-         }
 
-         public void operationComplete(ChannelProgressiveFuture future) {
-             System.err.println(future.channel() + "Transfer complete.");
-         }
-     });
+             public void operationComplete(ChannelProgressiveFuture future) {
+                 System.err.println(future.channel() + "Transfer complete.");
+                 setDataToClient(response,"Transfer complete.");
+             }
+         });
 
 
-// Write the end marker
+//写结束标记
         ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
 
-// Decide whether to close the connection or not.
+//决定是否关闭连接。
         if (!HttpHeaders.isKeepAlive(request)) {
-// Close the connection when the whole content is written out.
+//当整个内容被写出时关闭连接。
             lastContentFuture.addListener(ChannelFutureListener.CLOSE);
         }
 
@@ -200,6 +203,7 @@ ChannelFuture sendFileFuture =
      * file to extract content type
      */
     private static void setContentTypeHeader(HttpResponse response, File file) {
+        System.out.println(":<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-------");
         MimetypesFileTypeMap m = new MimetypesFileTypeMap();
         String contentType = m.getContentType(file.getPath());
         if (!contentType.equals("application/octet-stream")) {
